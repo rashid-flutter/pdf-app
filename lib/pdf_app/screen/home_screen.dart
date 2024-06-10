@@ -8,8 +8,6 @@ import 'package:pdf_app/pdf_app/service/pdf_service.dart';
 import 'package:pdf_app/pdf_app/store/objectbox_service.dart';
 // import 'package:objectbox/objectbox.dart';
 
-
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -78,9 +76,9 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(fontSize: 18, color: Colors.white),
         ),
         actions: [
-          ElevatedButton(
+          IconButton(
             onPressed: openCamera,
-            child: const Icon(
+            icon: const Icon(
               Icons.add_a_photo,
               color: Colors.white,
             ),
@@ -88,9 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 10,
           ),
-          ElevatedButton(
+          IconButton(
             onPressed: openGallery,
-            child: const Icon(
+            icon: const Icon(
               Icons.image,
               color: Colors.white,
             ),
