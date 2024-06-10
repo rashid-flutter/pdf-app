@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:pdf_creator/pdf_app/service/pdf_service.dart';
+import 'package:pdf_app/pdf_app/service/pdf_service.dart';
 
 class ViewPdfScreen extends StatefulWidget {
   const ViewPdfScreen({super.key, required this.pdf});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pdf_creator/pdf_app/screen/home_screen.dart';
-import 'package:pdf_creator/pdf_app/store/objectbox_service.dart';
+import 'package:pdf_app/pdf_app/screen/home_screen.dart';
+import 'package:pdf_app/pdf_app/store/objectbox_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

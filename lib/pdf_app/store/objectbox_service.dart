@@ -2,9 +2,10 @@
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:pdf_creator/objectbox.g.dart';
-import 'package:pdf_creator/pdf_app/moldel/image_entity.dart';
-import 'package:pdf_creator/pdf_app/store/objectbox_model.dart';
+import 'package:pdf_app/objectbox.g.dart';
+import 'package:pdf_app/pdf_app/moldel/image_entity.dart';
+import 'package:pdf_app/pdf_app/store/objectbox_model.dart';
+
 
 class ObjectBox {
   late final Store store;
