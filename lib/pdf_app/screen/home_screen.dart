@@ -132,7 +132,7 @@ class HomeScreen extends ConsumerWidget {
                     imageNotifier.deleteAllImages();
                   },
             child: const Icon(
-              Icons.delete_forever,
+              Icons.add,
               color: Color.fromARGB(255, 255, 246, 246),
             ),
           ),
