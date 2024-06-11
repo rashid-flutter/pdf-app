@@ -70,6 +70,12 @@ class ImageNotifer extends StateNotifier<List<File>> {
     final item = state.removeAt(oldIndex);
     state.insert(newIndex, item);
   }
+
+  //delete all image in dd....
+  void deleteAllImages() {
+    objectBox.imageBox.removeAll();
+    state = [];
+  }
 }
 
 final imageProvider =

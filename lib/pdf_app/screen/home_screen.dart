@@ -124,6 +124,18 @@ class HomeScreen extends ConsumerWidget {
               color: Color.fromARGB(255, 255, 246, 246),
             ),
           ),
+          const SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: storedImages.isEmpty
+                ? null
+                : () {
+                    imageNotifier.deleteAllImages();
+                  },
+            child: const Icon(
+              Icons.delete_forever,
+              color: Color.fromARGB(255, 255, 246, 246),
+            ),
+          ),
         ],
       ),
     );
