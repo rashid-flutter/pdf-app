@@ -44,6 +44,20 @@ dependencies:
   objectbox: any
   objectbox_flutter_libs: any
   flutter_riverpod: ^2.5.1
+  flutter_native_splash: ^2.4.0
+
+flutter_native_splash:
+  color: "#ffffff" # Background color of the splash screen
+  image: assets/images/icon.png # Path to your splash image
+  android: true # Enable for Android
+  ios: true # Enable for iOS
+  web: true # Enable for Web
+  fullscreen: true # Fullscreen splash screen
+  android_gravity: center # Center the splash image
+  ios_content_mode: center # Center the splash image
+  # Customize the duration of the splash screen (optional)
+  # To change the duration, you need to update the MainActivity.kt for Android and AppDelegate.swift for iOS manually
+
 
 dev_dependencies:
   flutter_test:
