@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:pdf_app/objectbox.g.dart';
 import 'package:pdf_app/pdf_app/moldel/image_entity.dart';
 import 'package:pdf_app/pdf_app/screen/pdf_view_screen.dart';
 import 'package:pdf_app/pdf_app/service/image_service.dart';
@@ -18,6 +19,16 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<File> images = [];
   List<File> storedImages = [];
+
+  late final ObjectBox objectBox;
+
+  @override
+  void initState() {
+    super.initState();
+    objectBox = ObjectBox(); // Initialize ObjectBox
+    storedImages = getImagesFromBox();
+  }
+
   // save imges in database
   void savaImageToBox(String imagePath) {
     final imageEntity = ImageEntity(imagePath);
@@ -57,11 +68,25 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void deleteImage(int index) {
-    setState(() {
-      if (index >= 0 && index < storedImages.length) {
-        storedImages.removeAt(index);
+    if (index >= 0 && index < storedImages.length) {
+      final imageFile = storedImages[index];
+
+      // Find the ImageEntity corresponding to the file path
+      final imageEntity = objectBox.imageBox
+          .query(ImageEntity_.imagePath.equals(imageFile.path))
+          .build()
+          .findFirst();
+
+      if (imageEntity != null) {
+        // Remove the entity from the ObjectBox
+        objectBox.imageBox.remove(imageEntity.id);
+
+        // Update the storedImages list and UI
+        setState(() {
+          storedImages.removeAt(index);
+        });
       }
-    });
+    }
   }
 
   @override
@@ -123,10 +148,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     right: 0,
                     child: IconButton(
                       onPressed: () {
-                        setState(() {
-                          // storedImages.removeAt(index);
-                          deleteImage(index);
-                        });
+                        // storedImages.removeAt(index);
+                        deleteImage(index);
                       },
                       icon: const Icon(
                         Icons.remove_circle,
