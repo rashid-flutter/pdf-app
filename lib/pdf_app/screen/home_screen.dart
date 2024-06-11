@@ -1,97 +1,18 @@
-import 'dart:io';
-
+// import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:pdf_app/objectbox.g.dart';
-import 'package:pdf_app/pdf_app/moldel/image_entity.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pdf_app/pdf_app/screen/pdf_view_screen.dart';
-import 'package:pdf_app/pdf_app/service/image_service.dart';
+import 'package:pdf_app/pdf_app/service/controller/pdf_controll.dart';
 import 'package:pdf_app/pdf_app/service/pdf_service.dart';
-import 'package:pdf_app/pdf_app/store/objectbox_service.dart';
-// import 'package:objectbox/objectbox.dart';
+// import 'package:pdf_app/main.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  List<File> images = [];
-  List<File> storedImages = [];
-
-  late final ObjectBox objectBox;
-
-  @override
-  void initState() {
-    super.initState();
-    objectBox = ObjectBox(); // Initialize ObjectBox
-    storedImages = getImagesFromBox();
-  }
-
-  // save imges in database
-  void savaImageToBox(String imagePath) {
-    final imageEntity = ImageEntity(imagePath);
-    final objectBox = ObjectBox(); // Change this line
-
-    objectBox.imageBox.put(imageEntity);
-    setState(() {
-      images.add(File(imagePath));
-    });
-  }
-
-  //get all images in db
-  List<File> getImagesFromBox() {
-    final objectBox = ObjectBox(); // Change this line
-    final imageEntities = objectBox.imageBox.getAll();
-    return imageEntities.map((entity) => File(entity.imagePath)).toList();
-  }
-
-  void openCamera() async {
-    final capturedImage = await ImageService.captureImage();
-    if (capturedImage != null) {
-      final croppedImage = await ImageService.cropImage(capturedImage);
-      if (croppedImage != null) {
-        savaImageToBox(croppedImage.path);
-      }
-    }
-  }
-
-  void openGallery() async {
-    final selectedImage = await ImageService.selectImage();
-    if (selectedImage != null) {
-      final croppedImage = await ImageService.cropImage(selectedImage);
-      if (croppedImage != null) {
-        savaImageToBox(croppedImage.path);
-      }
-    }
-  }
-
-  void deleteImage(int index) {
-    if (index >= 0 && index < storedImages.length) {
-      final imageFile = storedImages[index];
-
-      // Find the ImageEntity corresponding to the file path
-      final imageEntity = objectBox.imageBox
-          .query(ImageEntity_.imagePath.equals(imageFile.path))
-          .build()
-          .findFirst();
-
-      if (imageEntity != null) {
-        // Remove the entity from the ObjectBox
-        objectBox.imageBox.remove(imageEntity.id);
-
-        // Update the storedImages list and UI
-        setState(() {
-          storedImages.removeAt(index);
-        });
-      }
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    List<File> storedImages = getImagesFromBox();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final storedImages = ref.watch(imageProvider);
+    final imageNotifier = ref.read(imageProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -102,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: openCamera,
+            onPressed: imageNotifier.openCamera,
             icon: const Icon(
               Icons.add_a_photo,
               color: Colors.white,
@@ -112,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 10,
           ),
           IconButton(
-            onPressed: openGallery,
+            onPressed: imageNotifier.openGallery,
             icon: const Icon(
               Icons.image,
               color: Colors.white,
@@ -148,8 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     right: 0,
                     child: IconButton(
                       onPressed: () {
-                        // storedImages.removeAt(index);
-                        deleteImage(index);
+                        imageNotifier.deleteImage(index);
                       },
                       icon: const Icon(
                         Icons.remove_circle,
@@ -181,10 +101,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 : () async {
                     final createdPdf = await PdfService.cretePDf(storedImages);
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ViewPdfScreen(pdf: createdPdf)));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ViewPdfScreen(pdf: createdPdf),
+                      ),
+                    );
                   },
             child: const Icon(
               Icons.picture_as_pdf,

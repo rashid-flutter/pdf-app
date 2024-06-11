@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pdf_app/pdf_app/screen/home_screen.dart';
 import 'package:pdf_app/pdf_app/store/objectbox_service.dart';
@@ -8,7 +9,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await ObjectBox.create();
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 final kPrimaryColor = Colors.red[600];

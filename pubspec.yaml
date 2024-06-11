@@ -43,6 +43,7 @@ dependencies:
   share_plus: ^8.0.2
   objectbox: any
   objectbox_flutter_libs: any
+  flutter_riverpod: ^2.5.1
 
 dev_dependencies:
   flutter_test:
