@@ -18,7 +18,7 @@ class HomeScreen extends ConsumerWidget {
       appBar: AppBar(
         backgroundColor: Colors.red,
         title: const Text(
-          'Flutter Pdf Creator',
+          'PDF Creator',
           style: TextStyle(fontSize: 18, color: Colors.white),
         ),
         actions: [
