@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pdf_app/pdf_app/screen/home_screen.dart';
+import 'package:pdf_app/pdf_app/screen/splash_screen/splash_screen.dart';
 import 'package:pdf_app/pdf_app/store/objectbox_service.dart';
 
 void main() async {
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }
