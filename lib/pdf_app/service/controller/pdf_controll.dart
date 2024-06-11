@@ -61,6 +61,15 @@ class ImageNotifer extends StateNotifier<List<File>> {
       }
     }
   }
+
+  //drag and posision change
+  void reorderimages(int oldIndex, int newIndex) {
+    if (newIndex > oldIndex) {
+      newIndex -= 1;
+    }
+    final item = state.removeAt(oldIndex);
+    state.insert(newIndex, item);
+  }
 }
 
 final imageProvider =

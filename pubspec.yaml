@@ -45,6 +45,7 @@ dependencies:
   objectbox_flutter_libs: any
   flutter_riverpod: ^2.5.1
   flutter_native_splash: ^2.4.0
+  reorderables: ^0.6.0
 
 flutter_native_splash:
   color: "#ffffff" # Background color of the splash screen

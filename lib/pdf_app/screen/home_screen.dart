@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pdf_app/pdf_app/screen/pdf_view_screen.dart';
 import 'package:pdf_app/pdf_app/service/controller/pdf_controll.dart';
+import 'package:pdf_app/pdf_app/service/image_service.dart';
 import 'package:pdf_app/pdf_app/service/pdf_service.dart';
+// import 'package:pdf_app/pdf_app/store/objectbox_service.dart';
 // import 'package:pdf_app/main.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -58,11 +60,21 @@ class HomeScreen extends ConsumerWidget {
               ),
               itemBuilder: (context, index) => Stack(
                 children: [
-                  Image.file(
-                    storedImages[index],
-                    height: double.infinity,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+                  GestureDetector(
+                    onTap: () async {
+                      final croppedImage =
+                          await ImageService.cropImage(storedImages[index]);
+                      if (croppedImage != null) {
+                        imageNotifier.deleteImage(index);
+                        imageNotifier.saveImageToBox(croppedImage.path);
+                      }
+                    },
+                    child: Image.file(
+                      storedImages[index],
+                      height: double.infinity,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   Positioned(
                     top: 0,
