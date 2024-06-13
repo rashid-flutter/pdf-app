@@ -1,4 +1,4 @@
-# pdf_creator
+# pdf_app
 
 A new Flutter project.
 
