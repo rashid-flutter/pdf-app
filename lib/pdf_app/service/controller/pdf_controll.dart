@@ -1,12 +1,12 @@
 import 'dart:io';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:file_picker/file_picker.dart';
+// import 'package:pdf/widgets.dart' as pw;
+// import 'package:file_picker/file_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pdf_app/objectbox.g.dart';
 import 'package:pdf_app/pdf_app/moldel/image_entity.dart';
 import 'package:pdf_app/pdf_app/service/image_service.dart';
 import 'package:pdf_app/pdf_app/store/objectbox_service.dart';
-import 'package:permission_handler/permission_handler.dart';
+// import 'package:permission_handler/permission_handler.dart';
 
 class ImageNotifer extends StateNotifier<List<File>> {
   late final ObjectBox objectBox;
@@ -79,48 +79,48 @@ class ImageNotifer extends StateNotifier<List<File>> {
     state = [];
   }
 
-  Future<void> savePdf(List<File> imageFiles) async {
-    await requestPermissions();
-    final pdf = pw.Document();
-    for (final imageFile in imageFiles) {
-      try {
-        final imageBytes = await imageFile.readAsBytes();
-        final image = pw.MemoryImage(imageBytes);
-        pdf.addPage(
-          pw.Page(
-            build: (pw.Context context) {
-              return pw.Center(
-                child: pw.Image(image),
-              );
-            },
-          ),
-        );
-      } catch (e) {
-        print('Error processing image file ${imageFile.path}: $e');
-      }
-    }
+  // Future<void> savePdf(List<File> imageFiles) async {
+  //   await requestPermissions();
+  //   final pdf = pw.Document();
+  //   for (final imageFile in imageFiles) {
+  //     try {
+  //       final imageBytes = await imageFile.readAsBytes();
+  //       final image = pw.MemoryImage(imageBytes);
+  //       pdf.addPage(
+  //         pw.Page(
+  //           build: (pw.Context context) {
+  //             return pw.Center(
+  //               child: pw.Image(image),
+  //             );
+  //           },
+  //         ),
+  //       );
+  //     } catch (e) {
+  //       print('Error processing image file ${imageFile.path}: $e');
+  //     }
+  //   }
 
-    final outputDir = await FilePicker.platform.getDirectoryPath();
-    if (outputDir != null &&
-        await Permission.manageExternalStorage.request().isGranted) {
-      final outputFile = File('$outputDir/saved_images.pdf');
-      try {
-        await outputFile.writeAsBytes(await pdf.save());
-        print('File saved successfully at $outputDir/saved_images.pdf');
-      } catch (e) {
-        print('Error writing file: $e');
-      }
-    } else {
-      print('Directory not selected or permission denied');
-    }
-  }
+  //   final outputDir = await FilePicker.platform.getDirectoryPath();
+  //   if (outputDir != null &&
+  //       await Permission.manageExternalStorage.request().isGranted) {
+  //     final outputFile = File('$outputDir/saved_images.pdf');
+  //     try {
+  //       await outputFile.writeAsBytes(await pdf.save());
+  //       print('File saved successfully at $outputDir/saved_images.pdf');
+  //     } catch (e) {
+  //       print('Error writing file: $e');
+  //     }
+  //   } else {
+  //     print('Directory not selected or permission denied');
+  //   }
+  // }
 
-  Future<void> requestPermissions() async {
-    var status = await Permission.storage.status;
-    if (!status.isGranted) {
-      await Permission.storage.request();
-    }
-  }
+  // Future<void> requestPermissions() async {
+  //   var status = await Permission.storage.status;
+  //   if (!status.isGranted) {
+  //     await Permission.storage.request();
+  //   }
+  // }
 }
 
 final imageProvider =

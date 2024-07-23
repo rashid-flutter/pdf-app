@@ -48,6 +48,14 @@ dependencies:
   reorderables: ^0.6.0
   file_picker: ^8.0.6
   permission_handler: ^11.3.1
+  open_file: ^3.3.2
+  download: ^1.0.0
+  dio: ^5.5.0+1
+  googleapis: ^13.2.0
+  google_sign_in: ^6.2.1
+  http: ^1.2.2
+  googleapis_auth: ^1.6.0
+
 
 flutter_native_splash:
   color: "#ffffff" # Background color of the splash screen

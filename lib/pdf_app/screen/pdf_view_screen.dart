@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pdf_app/pdf_app/service/controller/pdf_controll.dart';
+// import 'package:pdf_app/pdf_app/service/controller/pdf_controll.dart';
 import 'package:pdf_app/pdf_app/service/pdf_service.dart';
 
 class ViewPdfScreen extends ConsumerStatefulWidget {
@@ -29,7 +29,7 @@ class _ViewPdfScreenState extends ConsumerState<ViewPdfScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final imageNotifier = ref.read(imageProvider.notifier);
+    // final imageNotifier = ref.read(imageProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -75,13 +75,13 @@ class _ViewPdfScreenState extends ConsumerState<ViewPdfScreen> {
         color: Colors.white,
         child: Text('page ${pageNo + 1} of $totalPages'),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final imageFiles = [widget.pdf];
-          imageNotifier.savePdf(imageFiles);
-        },
-        child: const Icon(Icons.save_alt),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     final imageFiles = [widget.pdf];
+      //     imageNotifier.savePdf(imageFiles);
+      //   },
+      //   child: const Icon(Icons.save_alt),
+      // ),
     );
   }
 }
