@@ -46,6 +46,8 @@ dependencies:
   flutter_riverpod: ^2.5.1
   flutter_native_splash: ^2.4.0
   reorderables: ^0.6.0
+  file_picker: ^8.0.6
+  permission_handler: ^11.3.1
 
 flutter_native_splash:
   color: "#ffffff" # Background color of the splash screen
